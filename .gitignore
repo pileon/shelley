@@ -173,3 +173,4 @@ Temporary Items
 *.dSYM/
 *.su
 
+/include/shelley/autoconf.h
