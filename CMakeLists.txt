@@ -96,7 +96,6 @@ string(REPLACE ";" " " CMAKE_REQUIRED_FLAGS "${COMPILER_OPTIONS}")
 
 configure_file(${CMAKE_SOURCE_DIR}/include/shelley/autoconf.h.in ${CMAKE_SOURCE_DIR}/include/shelley/autoconf.h)
 
-add_subdirectory(include)
 add_subdirectory(src)
 
 if(BUILD_TESTS)
