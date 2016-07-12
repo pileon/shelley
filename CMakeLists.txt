@@ -92,5 +92,4 @@ endif()
 add_compile_options(${COMPILER_OPTIONS})
 string(REPLACE ";" " " CMAKE_REQUIRED_FLAGS "${COMPILER_OPTIONS}")
 
-set(SOURCE_FILES main.cpp)
-add_executable(shelley ${SOURCE_FILES})
+add_subdirectory(src)
