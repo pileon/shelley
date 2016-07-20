@@ -20,6 +20,19 @@ or [Fish](https://fishshell.com)).
 
 # Use-cases
 
+1. A user should be able to enter a line of input
+2. A user should be able to execute commands
+3. A user should be able to pass arguments to commands
+4. A string in double- or single-quotes (`"` and `'`) should be a single
+   argument
+5. Certain special characters, like space outside of quoted strings, should
+   be able to escaped
+6. Variable expansion should not happen in single-quoted strings
+7. Multiple commands should possible to write on a single line, separating
+   them with semicolon
+8. Comments should be introduced with the `#` character, and last to the
+   end of the line
+
 # Milestones
 
 None of the milestones will have a fixed release-date.
@@ -44,6 +57,7 @@ Will not have:
 * Scripting
 * Any built-in commands (except `cd`)
 * Variables, both environment and local
+* Separate multiple commands using semicolon
 
 ### 0.2.0
 
@@ -86,5 +100,9 @@ Adding scripting:
   - `for`
   - `while`
 * Functions
+* Command sequencing
+  - Separating commands with semicolon
+  - Conditional sequencing with `AND` and `OR` operators
+* Comments
 
 # Implementation details
