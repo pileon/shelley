@@ -95,6 +95,14 @@ Adding variables:
 
 ### 0.8.0
 
+Prompting
+
+* "Left" prompt
+* "Right" prompt
+* "Title" prompt
+
+### 0.9.0
+
 Adding scripting:
 
 * Selection
