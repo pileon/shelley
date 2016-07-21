@@ -44,9 +44,8 @@ Very basic shell.
 Will be able to
 
 * Read a single line of input from user
-* Tokenize the input into command and arguments
+* Simple tokenization of the input into command and arguments
 * Create a new process to execute the command
-* Built-in `cd` command
 
 Will not have:
 
@@ -55,31 +54,36 @@ Will not have:
 * History
 * Aliases
 * Scripting
-* Any built-in commands (except `cd`)
+* Any built-in commands
 * Variables, both environment and local
 * Separate multiple commands using semicolon
 
 ### 0.2.0
 
-Adding history
+Adding support for built-in commands
+
+* Includes the `cd` command
 
 ### 0.3.0
 
-Adding piping
+Advanced tokenization of the input line:
+
+* Handling quoted strings
+* Add support to handlke single-quoted (`'`) strings differently from
+  double-quoted (`"`) strings.
+* Comments using `#` that lasts to the end of the line
 
 ### 0.4.0
 
-Adding redirection
+Adding history
 
 ### 0.5.0
 
-Adding aliases
-
-May be skipped in favor of functions.
+Adding piping
 
 ### 0.6.0
 
-Adding more usefull built-in commands
+Adding redirection
 
 ### 0.7.0
 
@@ -89,7 +93,7 @@ Adding variables:
 * Local
 * Global (but not in the environment)
 
-### 1.0.0
+### 0.8.0
 
 Adding scripting:
 
@@ -103,6 +107,11 @@ Adding scripting:
 * Command sequencing
   - Separating commands with semicolon
   - Conditional sequencing with `AND` and `OR` operators
-* Comments
+
+### 1.0.0
+
+Adding aliases
+
+May be skipped in favor of functions.
 
 # Implementation details
