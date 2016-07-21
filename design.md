@@ -75,17 +75,23 @@ Advanced tokenization of the input line:
 
 ### 0.4.0
 
-Adding history
+Add sub-shells
+
+Includes the possibility to run "embedded" commands
 
 ### 0.5.0
 
-Adding piping
+Adding history
 
 ### 0.6.0
 
-Adding redirection
+Adding piping
 
 ### 0.7.0
+
+Adding redirection
+
+### 0.8.0
 
 Adding variables:
 
@@ -93,7 +99,7 @@ Adding variables:
 * Local
 * Global (but not in the environment)
 
-### 0.8.0
+### 0.9.0
 
 Prompting
 
@@ -101,7 +107,7 @@ Prompting
 * "Right" prompt
 * "Title" prompt
 
-### 0.9.0
+### 0.10.0
 
 Adding scripting:
 
