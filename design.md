@@ -62,7 +62,9 @@ Will not have:
 
 Adding support for built-in commands
 
-* Includes the `cd` command
+Initial list of commands:
+
+* `cd`
 
 ### 0.3.0
 
@@ -122,10 +124,14 @@ Adding scripting:
   - Separating commands with semicolon
   - Conditional sequencing with `AND` and `OR` operators
 
-### 1.0.0
+### 0.11.0
 
 Adding aliases
 
 May be skipped in favor of functions.
+
+### 1.0.0
+
+Job control
 
 # Implementation details
