@@ -10,6 +10,11 @@ is still needed to make a foundation that could be built on. This document
 aims to be that set of requirement and design to make a good and stable
 foundation.
 
+### About this document
+
+Note that this document is not a straight-up design document, instead it's
+more of a list of things that needs to be done, as well as a roadmap.
+
 # Requirements
 
 It has not yet been decided if the shell should be POSIX compatible, or use
