@@ -15,15 +15,15 @@ foundation.
 Note that this document is not a straight-up design document, instead it's
 more of a list of things that needs to be done, as well as a roadmap.
 
-# Requirements
+## Requirements
 
 It has not yet been decided if the shell should be POSIX compatible, or use
 its own style and syntax (like [C Shell](https://en.wikipedia.org/wiki/C_shell)
 or [Fish](https://fishshell.com)).
 
-# Design
+## Design
 
-# Use-cases
+## Use-cases
 
 1. A user should be able to enter a line of input
 2. A user should be able to execute commands
@@ -38,7 +38,7 @@ or [Fish](https://fishshell.com)).
 8. Comments should be introduced with the `#` character, and last to the
    end of the line
 
-# Milestones
+## Milestones
 
 None of the milestones will have a fixed release-date.
 
@@ -139,4 +139,51 @@ May be skipped in favor of functions.
 
 Job control
 
-# Implementation details
+## Implementation details
+
+---
+---
+
+## Stuff
+
+Why should I treat this as a "shell", why not treat it as a
+[REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop) implementing a
+specific language? All commands are simply "function calls", and if no
+built-in function is found it's searched for in the `$PATH`.
+
+That means I'm going about this all wrong, and should instead first design
+and create the language. Then when that's done I wrap the parse and interpreter
+in a program that reads input from standard input instead of from a file.
+
+It still leaves a lot of questions that needs to be answered: Like should I
+implement a language based on the POSIX standard shell language? Some shell-
+like language (like Fish or CShell)? Some completely own language?
+
+Either way all of the above, the requirements, use-cases and milestones are
+obsolete as we need all new.
+
+Possible new set of milestones:
+
+* Buffering - Handling of input buffering
+* Tokenization - Input tokenization and lexing
+* Parsing - Parser for the language
+* Codegen - Generating code by the parser
+* Interpreter - Interpreting the code
+
+The above list is only for the language, we still don't have a functioning
+shell. For that we also need the actual REPL:
+
+* Prompting
+* Input
+* Output
+* Spawning - Creating new processes for the external commands an executing them
+* Piping - Related to the above
+
+Some things, like command sequencing, becomes easier with a "real" language,
+as that will be built into the language itself. Comments, possible line-
+continuations and many other things can also be easily handled at the different
+stages of tokenization, parsing and interpretation. It's also very easy to
+introduce proper scoping of variables. WE don't have to create weird or
+non-intuitive syntax for numeric arithmetic, arrays and other containers.
+
+The more I think about this, the more I like it.
