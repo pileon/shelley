@@ -187,3 +187,54 @@ introduce proper scoping of variables. WE don't have to create weird or
 non-intuitive syntax for numeric arithmetic, arrays and other containers.
 
 The more I think about this, the more I like it.
+
+### Language design
+
+#### Language tokens
+
+    SEPARATOR
+      : \n
+      | ';'
+      ;
+    
+    PATH_SEPARATOR
+      : /
+      ;
+
+#### Language grammar
+
+    script
+      : commands
+      ;
+    
+    commands
+      : command
+      | command SEPARATOR commands
+      ;
+      
+    command:
+      : cd
+      | set
+      | if
+      | for
+      | while
+      | function
+      | external
+      ;
+    
+    cd
+      : CD path
+      ;
+
+    path
+      : path_atom
+      | path_atom PATH_SEPARATOR
+      | path_atom PATH_SEPARATOR path
+      ;
+    
+    path_atom
+      : PATH_SEPARATOR
+      | '.'
+      | '..'
+      | name_expression
+      ;
