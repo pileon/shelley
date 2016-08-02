@@ -139,6 +139,14 @@ May be skipped in favor of functions.
 
 Job control
 
+### 1.1.0
+
+Windows implementation.
+
+### 2.0.0
+
+Reimplementation as a REPL environment.
+
 ## Implementation details
 
 ---
