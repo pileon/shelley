@@ -188,6 +188,11 @@ non-intuitive syntax for numeric arithmetic, arrays and other containers.
 
 The more I think about this, the more I like it.
 
+I like this idea, but I think I have to wait for a version 2.0.0 for this,
+as this project has turned into an excersize in Kanban as well, and I also
+really want to finish a project for once. :)
+
+
 ### Language design
 
 #### Language tokens
