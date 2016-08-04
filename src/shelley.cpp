@@ -1,8 +1,11 @@
 #include <iostream>
 
 #include <shelley/shelley.h>
+#include <shelley/utility.h>
+
+using namespace shelley;
 
 int main()
 {
-    std::cout << "Shelley says \"Hello\"\n";
+    std::cout << utility::get_prompt();
 }
