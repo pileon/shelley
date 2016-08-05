@@ -23,30 +23,10 @@ int main()
         return 0;
     }
 
-    std::cout << "1: Input is \"" << input << "\"\n";
+    auto command = utility::tokenize(input);
 
-    // Turn multiple white-space into single white-space
-    input.erase(std::unique(std::begin(input), std::end(input), [](auto const& first, auto const& second)
-    {
-        return std::isspace(first) && std::isspace(second);
-    }), std::end(input));
-
-    std::cout << "2: Input is \"" << input << "\"\n";
-
-    // Turn all white-space into a space
-    std::replace_if(std::begin(input), std::end(input), [](auto const& ch)
-    {
-        return std::isspace(ch);
-    }, ' ');
-
-    std::cout << "3: Input is \"" << input << "\"\n";
-
-    // Split each "word" into a vector
-    std::istringstream input_stream{input};
-    std::vector<std::string> command{std::istream_iterator<std::string>{input_stream},
-                                     std::istream_iterator<std::string>{}};
-
-    std::cout << "4: command is\n";
-    for (auto const& s : command)
+    std::cout << "command is \"" << command[0] << "\"\n";
+    std::cout << "    it has " << command.size() - 1 << " arguments\n";
+    for (auto const& s : std::vector<std::string>{std::begin(command) + 1, std::end(command)})
         std::cout << "    \"" << s << "\"\n";
 }
