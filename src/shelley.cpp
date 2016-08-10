@@ -12,6 +12,10 @@ using namespace shelley;
 
 int main()
 {
+    using command = std::vector<std::string>;
+
+    std::vector<command> commands;
+
     std::cout << utility::get_prompt() << std::flush;
 
     std::string input;
@@ -23,10 +27,14 @@ int main()
         return 0;
     }
 
-    auto command = utility::tokenize(input);
 
-    std::cout << "command is \"" << command[0] << "\"\n";
-    std::cout << "    it has " << command.size() - 1 << " arguments\n";
-    for (auto const& s : std::vector<std::string>{std::begin(command) + 1, std::end(command)})
-        std::cout << "    \"" << s << "\"\n";
+    commands.emplace_back(utility::tokenize(input));
+
+    for (auto const& cmd : commands)
+    {
+        std::cout << "cmd is \"" << cmd[0] << "\"\n";
+        std::cout << "    it has " << cmd.size() - 1 << " arguments\n";
+        for (auto const &s : std::vector<std::string>{std::begin(cmd) + 1, std::end(cmd)})
+            std::cout << "    \"" << s << "\"\n";
+    }
 }
