@@ -8,6 +8,10 @@
 #include <iterator>
 #include <sstream>
 
+#include <unistd.h>
+#include <sys/wait.h>
+#include <iomanip>
+
 using namespace shelley;
 
 int main()
@@ -32,9 +36,35 @@ int main()
 
     for (auto const& cmd : commands)
     {
-        std::cout << "cmd is \"" << cmd[0] << "\"\n";
-        std::cout << "    it has " << cmd.size() - 1 << " arguments\n";
-        for (auto const &s : std::vector<std::string>{std::begin(cmd) + 1, std::end(cmd)})
-            std::cout << "    \"" << s << "\"\n";
+        // Create a process
+        pid_t pid = fork();
+
+        if (pid == -1)
+            std::cerr << "Error forking process: " << errno << ' ' << strerror(errno) << '\n';
+        else if (pid == 0)
+        {
+            // In child, for now just exit
+             exit(0);
+        }
+        else
+        {
+            // In parent, wait for child to exit
+            int status;
+            if (wait(&status) == -1)
+                std::cerr << "Error waiting for child process: " << errno << ' ' << strerror(errno) << '\n';
+            else
+            {
+                if (WIFEXITED(status))
+                    std::cout << "Child exited with status " << WEXITSTATUS(status) << '\n';
+                else if (WIFSIGNALED(status))
+                    std::cout << "Child exited with a signal: " << WTERMSIG(status) << '\n';
+                else
+                {
+                    auto flags = std::cout.flags();
+                    std::cout << "Chid exited with unknown exit status: " << std::hex << std::setw(8) << std::setfill('0') << status << '\n';
+                    std::cout.flags(flags);
+                }
+            }
+        }
     }
 }
