@@ -7,71 +7,108 @@
 #include <vector>
 #include <iterator>
 #include <sstream>
+#include <iomanip>
+#include <exception>
 
 #include <unistd.h>
 #include <sys/wait.h>
-#include <iomanip>
+
 
 using namespace shelley;
 
-int main()
+namespace
 {
     using command = std::vector<std::string>;
 
-    std::vector<command> commands;
-
-    std::cout << utility::get_prompt() << std::flush;
-
-    std::string input;
-    if (!std::getline(std::cin, input))
+    std::string get_input(std::istream& is)
     {
-        if (!std::cin.eof())
-            std::cerr << "\nError reading input\n";
+        std::string input;
+        if (!std::getline(std::cin, input))
+        {
+            if (!is.eof())
+                throw std::runtime_error("error reading input");
 
-        return 0;
+            return "";
+        }
+
+        return input;
     }
 
-    commands.emplace_back(utility::tokenize(input));
-
-    for (auto const& cmd : commands)
+    [[noreturn]] void execute_command(command const& cmd)
     {
-        // Create a process
-        pid_t pid = fork();
+        // First translate the vector of std::string objects to an argv array
+        auto argv = utility::arguments_to_argv(cmd);
 
-        if (pid == -1)
-            std::cerr << "Error forking process: " << errno << ' ' << strerror(errno) << '\n';
-        else if (pid == 0)
-        {
-            // In child
+        // Execute the command
+        execvp(argv[0], argv.data());
 
-            // First translate the vector of std::string objects to an argv array
-            auto argv = utility::arguments_to_argv(cmd);
-            execvp(argv[0], argv.data());
-            if (errno == ENOENT)
-                std::cerr << "shelley: " << cmd[0] << ": command not found\n";
-            else
-                std::cerr << "shelley: " << cmd[0] << ": " << strerror(errno) << '\n';
-            exit(127);
-        }
+        // The execvp function returned? That's not good
+        if (errno == ENOENT)
+            std::cerr << "shelley: " << cmd[0] << ": command not found\n";
+        else
+            std::cerr << "shelley: " << cmd[0] << ": " << strerror(errno) << '\n';
+        exit(127);
+    }
+
+    void wait()
+    {
+        int status;
+        if (wait(&status) == -1)
+            std::cerr << "Error waiting for child process: " << errno << ' ' << strerror(errno) << '\n';
         else
         {
-            // In parent, wait for child to exit
-            int status;
-            if (wait(&status) == -1)
-                std::cerr << "Error waiting for child process: " << errno << ' ' << strerror(errno) << '\n';
+            if (WIFEXITED(status))
+                std::cout << "Child exited with status " << WEXITSTATUS(status) << '\n';
+            else if (WIFSIGNALED(status))
+                std::cout << "Child exited with a signal: " << WTERMSIG(status) << '\n';
             else
             {
-                if (WIFEXITED(status))
-                    std::cout << "Child exited with status " << WEXITSTATUS(status) << '\n';
-                else if (WIFSIGNALED(status))
-                    std::cout << "Child exited with a signal: " << WTERMSIG(status) << '\n';
-                else
-                {
-                    auto flags = std::cout.flags();
-                    std::cout << "Chid exited with unknown exit status: " << std::hex << std::setw(8) << std::setfill('0') << status << '\n';
-                    std::cout.flags(flags);
-                }
+                auto flags = std::cout.flags();
+                std::cout << "Chid exited with unknown exit status: " << std::hex << std::setw(8) << std::setfill('0') << status << '\n';
+                std::cout.flags(flags);
             }
         }
+    }
+
+    void process_commands(std::vector<command> const& commands)
+    {
+        for (auto const& cmd : commands)
+        {
+            // Create a process
+            pid_t pid = fork();
+
+            if (pid == -1)
+                std::cerr << "Error forking process: " << errno << ' ' << strerror(errno) << '\n';
+            else if (pid == 0)
+            {
+                // In child
+                execute_command(cmd);
+            }
+            else
+            {
+                // In parent, wait for child to exit
+                wait();
+            }
+        }
+    }
+}
+
+int main()
+{
+    for (;;)
+    {
+        std::cout << utility::get_prompt() << std::flush;
+
+        std::string input = get_input(std::cin);
+        if (input.empty())
+        {
+            if (std::cin.eof())
+                break;
+        }
+
+        std::vector<command> commands;
+        commands.emplace_back(utility::tokenize(input));
+
+        process_commands(commands);
     }
 }
