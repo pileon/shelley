@@ -47,8 +47,11 @@ int main()
             // First translate the vector of std::string objects to an argv array
             auto argv = utility::arguments_to_argv(cmd);
             execvp(argv[0], argv.data());
-            std::cerr << "Could not execute program \"" << cmd[0] << "\": " << strerror(errno) << '\n';
-            exit(1);
+            if (errno == ENOENT)
+                std::cerr << "shelley: " << cmd[0] << ": command not found\n";
+            else
+                std::cerr << "shelley: " << cmd[0] << ": " << strerror(errno) << '\n';
+            exit(127);
         }
         else
         {
