@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(shelley
-        VERSION 0.0.1
+        VERSION 0.1.0
         LANGUAGES CXX C)
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
