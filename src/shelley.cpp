@@ -31,7 +31,6 @@ int main()
         return 0;
     }
 
-
     commands.emplace_back(utility::tokenize(input));
 
     for (auto const& cmd : commands)
@@ -43,8 +42,16 @@ int main()
             std::cerr << "Error forking process: " << errno << ' ' << strerror(errno) << '\n';
         else if (pid == 0)
         {
-            // In child, for now just exit
-             exit(0);
+            // In child
+
+            // First translate the vector of std::string objects to an argv array
+            auto argv = utility::arguments_to_argv(cmd);
+            execvp(argv[0], argv.data());
+            if (errno == ENOENT)
+                std::cerr << "shelley: " << cmd[0] << ": command not found\n";
+            else
+                std::cerr << "shelley: " << cmd[0] << ": " << strerror(errno) << '\n';
+            exit(127);
         }
         else
         {

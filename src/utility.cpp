@@ -54,3 +54,16 @@ std::vector<std::string> shelley::utility::tokenize(std::string input)
 
     return command;
 }
+
+std::vector<char*> shelley::utility::arguments_to_argv(std::vector<std::string> const& arguments)
+{
+    std::vector<char*> argv(arguments.size() + 1, nullptr);
+    std::transform(std::begin(arguments), std::end(arguments), std::begin(argv),
+                   [](std::string const& s)
+                   {
+                       char* a = new char[s.size() + 1]{'\0'};
+                       std::copy(std::begin(s), std::end(s), a);
+                       return a;
+                   });
+    return argv;
+}
