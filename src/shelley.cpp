@@ -53,7 +53,7 @@ namespace
     void wait()
     {
         int status;
-        if (wait(&status) == -1)
+        if (::wait(&status) == -1)
             std::cerr << "Error waiting for child process: " << errno << ' ' << strerror(errno) << '\n';
         else
         {
