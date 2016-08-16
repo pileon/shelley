@@ -2,13 +2,8 @@
 #include <shelley/utility.h>
 
 #include <iostream>
-#include <algorithm>
-#include <cctype>
-#include <vector>
-#include <iterator>
 #include <sstream>
 #include <iomanip>
-#include <exception>
 
 #include <unistd.h>
 #include <sys/wait.h>
