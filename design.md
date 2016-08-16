@@ -82,29 +82,29 @@ Advanced tokenization of the input line:
 
 ### 0.4.0
 
-Add sub-shells
-
-Includes the possibility to run "embedded" commands
+Adding history
 
 ### 0.5.0
 
-Adding history
+Adding piping
 
 ### 0.6.0
 
-Adding piping
-
-### 0.7.0
-
 Adding redirection
 
-### 0.8.0
+### 0.7.0
 
 Adding variables:
 
 * Environment
 * Local
 * Global (but not in the environment)
+
+### 0.8.0
+
+Add sub-shells
+
+Includes the possibility to run "embedded" commands
 
 ### 0.9.0
 
