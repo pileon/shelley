@@ -52,10 +52,17 @@ namespace
             std::cerr << "Error waiting for child process: " << errno << ' ' << strerror(errno) << '\n';
         else
         {
+            // TODO: Do I need to print these? Maybe if the child exited with a signal?
             if (WIFEXITED(status))
-                std::cout << "Child exited with status " << WEXITSTATUS(status) << '\n';
+            {
+                //std::cout << "Child exited with status " << WEXITSTATUS(status)
+                //          << '\n';
+            }
             else if (WIFSIGNALED(status))
-                std::cout << "Child exited with a signal: " << WTERMSIG(status) << '\n';
+            {
+                //std::cout << "Child exited with a signal: " << WTERMSIG(status)
+                //          << '\n';
+            }
             else
             {
                 auto flags = std::cout.flags();

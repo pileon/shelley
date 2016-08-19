@@ -73,6 +73,12 @@ Initial list of commands:
 
 ### 0.3.0
 
+Handle command line arguments to the shell program.
+
+Be able to work as a login shell.
+
+### 0.4.0
+
 Advanced tokenization of the input line:
 
 * Handling quoted strings
@@ -80,19 +86,19 @@ Advanced tokenization of the input line:
   double-quoted (`"`) strings.
 * Comments using `#` that lasts to the end of the line
 
-### 0.4.0
+### 0.5.0
 
 Adding history
 
-### 0.5.0
+### 0.6.0
 
 Adding piping
 
-### 0.6.0
+### 0.7.0
 
 Adding redirection
 
-### 0.7.0
+### 0.8.0
 
 Adding variables:
 
@@ -100,13 +106,13 @@ Adding variables:
 * Local
 * Global (but not in the environment)
 
-### 0.8.0
+### 0.9.0
 
 Add sub-shells
 
 Includes the possibility to run "embedded" commands
 
-### 0.9.0
+### 0.10.0
 
 Prompting
 
@@ -114,7 +120,7 @@ Prompting
 * "Right" prompt
 * "Title" prompt
 
-### 0.10.0
+### 0.11.0
 
 Adding scripting:
 
@@ -129,7 +135,7 @@ Adding scripting:
   - Separating commands with semicolon
   - Conditional sequencing with `AND` and `OR` operators
 
-### 0.11.0
+### 0.12.0
 
 Adding aliases
 
