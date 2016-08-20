@@ -46,7 +46,7 @@ namespace
 std::string shelley::utility::get_input(std::istream& is)
 {
     std::string input;
-    if (!std::getline(std::cin, input))
+    if (!std::getline(is, input))
     {
         if (!is.eof())
             throw std::runtime_error("error reading input");
