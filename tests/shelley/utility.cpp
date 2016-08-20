@@ -10,12 +10,25 @@ TEST(utility, tokenize)
 {
     auto tokens = shelley::utility::tokenize("foo bar baz");
 
-    EXPECT_EQ(tokens.size(), 3ul);
+    ASSERT_EQ(tokens.size(), 3ul);
 
-    if (tokens.size() >= 3)
-    {
-        EXPECT_EQ(tokens[0], "foo");
-        EXPECT_EQ(tokens[1], "bar");
-        EXPECT_EQ(tokens[2], "baz");
-    }
+    EXPECT_EQ(tokens[0], "foo");
+    EXPECT_EQ(tokens[1], "bar");
+    EXPECT_EQ(tokens[2], "baz");
+}
+
+TEST(utility, arguments_to_argv)
+{
+    auto argv = shelley::utility::arguments_to_argv({"foo", "bar", "baz" });
+
+    ASSERT_EQ(argv.size(), 4ul);  // 4 because of the terminating null pointer
+
+    EXPECT_NE(argv[0], nullptr);
+    EXPECT_NE(argv[1], nullptr);
+    EXPECT_NE(argv[2], nullptr);
+    EXPECT_EQ(argv[3], nullptr);
+
+    EXPECT_STREQ(argv[0], "foo");
+    EXPECT_STREQ(argv[1], "bar");
+    EXPECT_STREQ(argv[2], "baz");
 }
