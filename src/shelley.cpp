@@ -15,20 +15,6 @@ namespace
 {
     using command = std::vector<std::string>;
 
-    std::string get_input(std::istream& is)
-    {
-        std::string input;
-        if (!std::getline(std::cin, input))
-        {
-            if (!is.eof())
-                throw std::runtime_error("error reading input");
-
-            return "";
-        }
-
-        return input;
-    }
-
     [[noreturn]] void execute_command(command const& cmd)
     {
         // First translate the vector of std::string objects to an argv array
@@ -101,7 +87,7 @@ int main()
     {
         std::cout << utility::get_prompt() << std::flush;
 
-        std::string input = get_input(std::cin);
+        std::string input = utility::get_input(std::cin);
         if (input.empty())
         {
             if (std::cin.eof())
