@@ -32,3 +32,25 @@ TEST(utility, arguments_to_argv)
     EXPECT_STREQ(argv[1], "bar");
     EXPECT_STREQ(argv[2], "baz");
 }
+
+TEST(utility, get_input)
+{
+    std::istringstream iss{"foo\nbar\nbaz\n"};
+    std::vector<std::string> input;
+
+    std::string s;
+    while (!(s = shelley::utility::get_input(iss)).empty())
+    {
+        input.push_back(s);
+    }
+
+    ASSERT_EQ(input.size(), 3ul);
+
+    EXPECT_EQ(input[0], "foo");
+    EXPECT_EQ(input[1], "bar");
+    EXPECT_EQ(input[2], "baz");
+
+    EXPECT_TRUE(iss.eof());
+
+    EXPECT_TRUE(shelley::utility::get_input(iss).empty());
+}
