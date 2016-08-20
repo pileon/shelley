@@ -43,6 +43,20 @@ namespace
     }
 }
 
+std::string shelley::utility::get_input(std::istream& is)
+{
+    std::string input;
+    if (!std::getline(is, input))
+    {
+        if (!is.eof())
+            throw std::runtime_error("error reading input");
+
+        return "";
+    }
+
+    return input;
+}
+
 std::vector<std::string> shelley::utility::tokenize(std::string input)
 {
     clean_spaces(input);
