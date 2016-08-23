@@ -31,6 +31,11 @@ TEST(utility, arguments_to_argv)
     EXPECT_STREQ(argv[0], "foo");
     EXPECT_STREQ(argv[1], "bar");
     EXPECT_STREQ(argv[2], "baz");
+
+    // Cleanup
+    for (auto a : argv)
+        delete [] a;
+    argv.clear();
 }
 
 TEST(utility, get_input)
